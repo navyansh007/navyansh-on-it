@@ -9,7 +9,7 @@ const Blogs = ({posts}) => {
   return (
     <>
         <h2 style={{fontSize: '200%', color: '#0070f3'}}>
-          Latest Blogs
+          {posts.length===0 ? 'No blogs to show currently, but more blogs are on the way' : 'Latest Blogs'}
         </h2>
 
         <div className={styles.grid}>
