@@ -4,11 +4,11 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding-top: 3rem;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -26,6 +26,7 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  white-space: nowrap;
 }
 
 .title a {
@@ -43,6 +44,7 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+  color: #0070f3;
 }
 
 .title,
@@ -54,6 +56,7 @@
   margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
+  color: #0070f3;
 }
 
 .code {
@@ -68,9 +71,9 @@
 .grid {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 60%;
 }
 
 .card {
@@ -83,13 +86,17 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  color: #0070f3;
+  border-color: #0070f3;
+  transition: transform .5s ease;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: black;
+  border-color: black;
+  transform: scale(1.12);
 }
 
 .card h2 {
@@ -108,10 +115,48 @@
   margin-left: 0.5rem;
 }
 
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.navbar ul li {
+  font-size: 120%;
+  margin: 0 24px;
+  list-style: none;
+  font-weight: bold;
+  color: #0070f3;
+  transition: transform .5s ease;
+}
+
+.navbar ul li:hover, .navbar ul li:focus, .navbar ul li:active {
+  color: black;
+  transform: scale(1.2);
+}
+
 @media (max-width: 600px) {
   .grid {
-    width: 100%;
+    max-width: 100%;
     flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1059px) {
+  .grid {
+    max-width: 100%;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1060px) {
+  .grid {
+    max-width: 80%;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
   }
 }
 
@@ -127,3 +172,5 @@
     filter: invert(1);
   }
 }
+
+
