@@ -9,7 +9,6 @@ const Blog = (props) => {
     <Link href={`/blog/${slug}`}>
         <a className={styles.card}>
           <h2>{title}</h2>
-          <p>{description}</p>
         </a>
     </Link>
   )

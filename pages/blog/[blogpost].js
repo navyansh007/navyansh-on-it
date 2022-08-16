@@ -13,10 +13,17 @@ const Blogpost = ({posts}) => {
                 <h1 className={styles.title}>
                     {posts[0].title}
                 </h1>
-                
-                <p className={styles.description}>
-                    {posts[0].body[0].children[0].text}
-                </p>
+                <div style={{marginTop: '5%', maxWidth: '80%'}}>
+                {
+                    posts[0].body.map((paragraph, index) => {
+                        return(
+                            <p key={index} className={styles.blog_paragraphs}>
+                                {posts[0].body[index].children[0].text}
+                            </p>
+                        )
+                    })
+                }
+                </div>
             </main>
         </div>
     )

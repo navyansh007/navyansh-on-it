@@ -59,6 +59,15 @@
   color: #0070f3;
 }
 
+.blog_paragraphs {
+  margin: 1rem 0;
+  margin-left: 2%;
+  margin-right: 2%;
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: #0070f3;
+}
+
 .code {
   background: #fafafa;
   border-radius: 5px;

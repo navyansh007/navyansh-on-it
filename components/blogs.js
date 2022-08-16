@@ -19,7 +19,6 @@ const Blogs = ({posts}) => {
                 key={blog.slug.current} 
                 slug={blog.slug.current} 
                 title={blog.title} 
-                description={blog.body[0].children[0].text.length>55 ? `${blog.body[0].children[0].text.slice(0, 55)}...` : blog.body[0].children[0].text}
               />
             )
           })}
