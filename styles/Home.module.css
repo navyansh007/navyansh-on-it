@@ -94,8 +94,6 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: black;
-  border-color: black;
   transform: scale(1.12);
 }
 
@@ -131,7 +129,6 @@
 }
 
 .navbar ul li:hover, .navbar ul li:focus, .navbar ul li:active {
-  color: black;
   transform: scale(1.2);
 }
 
