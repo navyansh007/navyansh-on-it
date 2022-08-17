@@ -68,6 +68,15 @@
   color: #0070f3;
 }
 
+.publish_record {
+  margin-top: 5%;
+}
+
+.timestamp {
+  color: #0070f3;
+  text-align: right;
+}
+
 .code {
   background: #fafafa;
   border-radius: 5px;
@@ -147,6 +156,17 @@
     flex-direction: column;
     justify-content: center;
   }
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .publish_record {
+    margin-top: 20%;
+  }
+  
+  .timestamp {
+    font-size: 90%;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1059px) {
@@ -154,6 +174,9 @@
     max-width: 100%;
     flex-direction: row;
     justify-content: center;
+  }
+  .title {
+    font-size: 3.5rem;
   }
 }
 

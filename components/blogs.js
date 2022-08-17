@@ -19,6 +19,7 @@ const Blogs = ({posts}) => {
                 key={blog.slug.current} 
                 slug={blog.slug.current} 
                 title={blog.title} 
+                publishedAt={blog.publishedAt}
               />
             )
           })}

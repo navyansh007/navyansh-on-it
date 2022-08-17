@@ -2,8 +2,21 @@ import React from 'react'
 import { createClient } from 'next-sanity'
 import styles from '../../styles/Home.module.css'
 import Head from 'next/head'
+import imageUrlBuilder from '@sanity/image-url'
+import moment from 'moment'
 
 const Blogpost = ({posts}) => {
+
+    const client = createClient({
+        projectId: 'krfx4zuu',
+        dataset: 'production',
+        useCdn: true
+    })
+    const builder = imageUrlBuilder(client)
+    function urlFor(source) {
+        return builder.image(source)
+    }
+
     return(
         <div className="container">
             <Head>
@@ -14,20 +27,38 @@ const Blogpost = ({posts}) => {
                     {posts[0].title}
                 </h1>
                 <div style={{marginTop: '5%', maxWidth: '80%'}}>
-                {
-                    posts[0].body.map((paragraph, index) => {
-                        return(
-                            <p key={index} className={styles.blog_paragraphs}>
-                                {posts[0].body[index].children[0].text}
-                            </p>
-                        )
-                    })
-                }
+                    {
+                        posts[0].body.map((paragraph, index) => {
+                            if(posts[0].body[index]._type==='image'){
+                                return(
+                                    <img key={index} style={
+                                        {
+                                            display: 'block', 
+                                            marginLeft: 'auto',
+                                            marginRight: 'auto',
+                                        }} 
+                                        src={`${urlFor(posts[0].body[index].asset).auto('format').url()}`}
+                                    />
+                                )
+                            } else {
+                                return(
+                                    <p key={index} className={styles.blog_paragraphs}>
+                                        {posts[0].body[index].children[0].text}
+                                    </p>
+                                )
+                            }
+                        })
+                    }
+                    <div className={styles.publish_record}>
+                        <p className={styles.timestamp}>Published at <strong>{moment(posts[0].publishedAt).utc().add({h: 5, m:30}).format('DD-MM-YYYY HH:mm:ss')} IST</strong></p>
+                        <p className={styles.timestamp}>Updated at <strong>{moment(posts[0]._updatedAt).utc().add({h: 5, m:30}).format('DD-MM-YYYY HH:mm:ss')} IST</strong></p>
+                    </div>
                 </div>
             </main>
         </div>
     )
 }
+
 
 export async function getServerSideProps(context){
     const client = createClient({
@@ -35,6 +66,7 @@ export async function getServerSideProps(context){
       dataset: 'production',
       useCdn: true
     })
+
     const blogpost = context.query.blogpost
     const query = `*[slug.current == '${blogpost}' ]`
     const posts = await client.fetch(query)
