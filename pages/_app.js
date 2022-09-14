@@ -23,8 +23,12 @@ const App = ({ Component, pageProps }) => {
     <>
       {/* Global Site Tag (gtag.js) - Google Analytics */}
       <Script
+        crossOrigin='anonymous'
+        async={true}
+        id='Adsense-id'
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9573866664396327"
         strategy="afterInteractive"
+        onError={(e) => { console.error("Script failed to load", e);}}
       />
       <Script
         strategy="afterInteractive"

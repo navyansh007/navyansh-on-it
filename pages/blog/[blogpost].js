@@ -4,6 +4,8 @@ import styles from '../../styles/Home.module.css'
 import Head from 'next/head'
 import imageUrlBuilder from '@sanity/image-url'
 import moment from 'moment'
+import Script from 'next/script'
+
 
 const Blogpost = ({posts}) => {
 
@@ -55,6 +57,20 @@ const Blogpost = ({posts}) => {
                     </div>
                 </div>
             </main>
+            <div>
+                <ins 
+                    className="adsbygoogle"
+                    style={{ display: "block" }}
+                    data-ad-client="ca-pub-9573866664396327"
+                    data-ad-slot="9215262735"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                </ins>
+                <Script onLoad={
+                    () => (adsbygoogle = window.adsbygoogle || []).push({})
+                    }
+                />
+            </div>
         </div>
     )
 }
