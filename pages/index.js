@@ -5,6 +5,7 @@ import Blog from '../components/blog'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Blogs from '../components/blogs'
+import Script from 'next/script'
 
 export default function Home({posts}) {
   return (
@@ -35,6 +36,18 @@ export default function Home({posts}) {
 
         <Blogs posts={posts}/>
       </main>
+      <ins 
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-9573866664396327"
+        data-ad-slot="9215262735"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
+      </ins>
+      <Script onLoad={
+          () => (adsbygoogle = window.adsbygoogle || []).push({})
+        }
+      />
 
       <footer className={styles.footer} style={{paddingTop: '0%', paddingBottom: '0%'}}>
           <p style={{color: '#0070f3'}}>Owned by <strong>Navyansh Kesarwani</strong></p>
