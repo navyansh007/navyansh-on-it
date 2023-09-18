@@ -47,6 +47,23 @@
   color: #0070f3;
 }
 
+.content_h1 {
+  font-size: 3rem;
+  color: #0070f3;
+}
+.content_h2 {
+  font-size: 2.75rem;
+  color: #0070f3;
+}
+.content_h3 {
+  font-size: 2.65rem;
+  color: #0070f3;
+}
+.content_h4 {
+  font-size: 2.5rem;
+  color: #0070f3;
+}
+
 .title,
 .description {
   text-align: center;
