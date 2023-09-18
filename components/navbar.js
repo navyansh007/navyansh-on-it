@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
 const Navbar = () => {
+  const [searchedPost, setSearchedPost] = React.useState('')
   return (
     <nav className={styles.navbar}>
         <ul>

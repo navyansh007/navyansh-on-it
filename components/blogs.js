@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 
-const Blogs = ({posts}) => {
+const Blogs = ({posts, searchedPost}) => {
     const router = useRouter()
     const latestPosts = router.pathname === '/' && posts.length>25 ? posts.slice(0, 26) : posts
   return (
