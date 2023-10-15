@@ -130,7 +130,6 @@ const Blogpost = ({posts}) => {
                     }
                     <div className={styles.publish_record}>
                         <p className={styles.timestamp}>Published at <strong>{moment(posts[0].publishedAt).utc().add({h: 5, m:30}).format('DD-MM-YYYY HH:mm:ss')} IST</strong></p>
-                        <p className={styles.timestamp}>Updated at <strong>{moment(posts[0]._updatedAt).utc().add({h: 5, m:30}).format('DD-MM-YYYY HH:mm:ss')} IST</strong></p>
                     </div>
                 </div>
             </main>
