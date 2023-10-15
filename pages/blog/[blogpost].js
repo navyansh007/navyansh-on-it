@@ -19,9 +19,11 @@ const Blogpost = ({posts}) => {
         return builder.image(source)
     }
 
+    /*
     useEffect(() => {
         console.log(posts)
     }, [])
+    */
 
     return(
         <div className="container">
