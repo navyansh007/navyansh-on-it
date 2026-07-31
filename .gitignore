@@ -27,9 +27,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
+# env files — .env holds every secret and must never be committed.
+# .env.example is the committed reference and is exempt below.
 .env
+.env.*
+!.env.example
 
 # vercel
 .vercel
