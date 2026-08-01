@@ -28,7 +28,7 @@
 
   /* Measure & rhythm */
   --page: 1200px;
-  --measure: 40rem;
+  --measure: 38rem;
   --gutter: 2rem;
 }
 
@@ -144,6 +144,15 @@ a {
 
 .masthead__title a {
   display: block;
+}
+
+/* A press-and-hold opens the journal, so the press must not be taken as a
+   text selection or, on iOS, as a link callout. */
+[data-journal-hold],
+[data-journal-hold] a {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .masthead__motto {

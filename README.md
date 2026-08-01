@@ -49,6 +49,23 @@ browser. They never enter any page's HTML, never appear in
 `generateStaticParams`, and their URLs return 404. The only way they leave the
 server is through `/api/journal`, which requires the password.
 
+## Reading the journal
+
+The journal has no URL and nothing on the site links to it. It opens as an
+overlay, in any of three ways:
+
+- **Type `journal`** anywhere on the site, outside a text field.
+- **Press and hold the masthead nameplate** for about half a second. This is
+  the one that works with a thumb.
+- **Load any page with `#journal` on the end** — say
+  `https://navyanshonit.com/#journal`. Bookmark it, or keep it on the phone's
+  home screen, and one tap opens the journal. The fragment never reaches the
+  server, and it is stripped from the address bar the moment it is read, so
+  the URL left behind gives nothing away.
+
+Each of them only raises the password prompt; the entries themselves still
+come from `/api/journal`.
+
 ## Writing
 
 `/write` is the composing room. It asks for `ADMIN_PASSWORD`, then offers:

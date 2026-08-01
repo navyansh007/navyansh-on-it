@@ -9,14 +9,24 @@ import { longDate } from '../lib/dates'
 /**
  * The private journal.
  *
- * Opened by typing the word below anywhere on the site — a typed sequence
- * rather than a modifier chord because every obvious chord (Ctrl+Shift+J/K/I)
- * is already taken by a browser's devtools. Nothing on the site advertises it,
- * and it deliberately has no URL of its own: private entries are fetched from
- * an authorised API and rendered into this overlay, so they never appear in
- * any page's HTML, sitemap or build output.
+ * Three ways in, none of them advertised, none of them a page of its own:
+ * private entries are fetched from an authorised API and rendered into this
+ * overlay, so they never appear in any page's HTML, sitemap or build output.
+ *
+ * - Type the word below anywhere on the site. A typed sequence rather than a
+ *   modifier chord because every obvious chord (Ctrl+Shift+J/K/I) is already
+ *   taken by a browser's devtools. No use on a phone, hence the other two.
+ * - Press and hold the masthead nameplate. Works with a finger.
+ * - Load any page with the fragment below — bookmark it, or keep it on the
+ *   home screen. A fragment never reaches the server and is wiped from the
+ *   address bar the moment it is read, so it leaves nothing behind.
  */
 const SECRET = 'journal'
+const FRAGMENT = '#journal'
+const HOLD_MS = 650
+
+// How far a finger may drift before the hold is read as a scroll instead.
+const HOLD_SLOP = 10
 
 export default function Journal() {
   const [open, setOpen] = useState(false)
@@ -30,6 +40,11 @@ export default function Journal() {
   const [error, setError] = useState('')
 
   const buffer = useRef('')
+
+  // Set by a hold that opened the journal, read by the click that follows it.
+  // A ref, not a local: opening re-runs the effect below, which would take a
+  // local flag down with it before the click ever arrived.
+  const held = useRef(false)
 
   const load = useCallback(async (auth) => {
     setBusy(true)
@@ -91,6 +106,89 @@ export default function Journal() {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [open])
+
+  /* --- the same door, for a thumb ---------------------------------------- */
+
+  useEffect(() => {
+    let timer = null
+    let start = null
+
+    function cancel() {
+      clearTimeout(timer)
+      timer = null
+      start = null
+    }
+
+    function onPointerDown(event) {
+      held.current = false
+      if (open) return
+      if (event.pointerType === 'mouse' && event.button !== 0) return
+      if (!event.target.closest?.('[data-journal-hold]')) return
+
+      start = { x: event.clientX, y: event.clientY }
+      timer = setTimeout(() => {
+        timer = null
+        held.current = true
+        setPassword('')
+        setOpen(true)
+      }, HOLD_MS)
+    }
+
+    function onPointerMove(event) {
+      if (!start) return
+      const drift = Math.hypot(event.clientX - start.x, event.clientY - start.y)
+      if (drift > HOLD_SLOP) cancel()
+    }
+
+    // The nameplate is a link home; a hold that opened the journal must not
+    // navigate as well.
+    function onClick(event) {
+      if (!held.current) return
+      held.current = false
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
+    window.addEventListener('pointerdown', onPointerDown)
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', cancel)
+    window.addEventListener('pointercancel', cancel)
+    window.addEventListener('scroll', cancel, true)
+    // Capture, so the suppressed click never reaches the link's own handler.
+    window.addEventListener('click', onClick, true)
+
+    return () => {
+      cancel()
+      window.removeEventListener('pointerdown', onPointerDown)
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', cancel)
+      window.removeEventListener('pointercancel', cancel)
+      window.removeEventListener('scroll', cancel, true)
+      window.removeEventListener('click', onClick, true)
+    }
+  }, [open])
+
+  /* --- the same door, from a bookmark ------------------------------------ */
+
+  useEffect(() => {
+    function read() {
+      if (window.location.hash.toLowerCase() !== FRAGMENT) return
+
+      // Wipe it before opening: the address bar keeps no trace, and a stray
+      // share or screenshot of the URL gives nothing away.
+      window.history.replaceState(
+        null,
+        '',
+        window.location.pathname + window.location.search
+      )
+      setPassword('')
+      setOpen(true)
+    }
+
+    read()
+    window.addEventListener('hashchange', read)
+    return () => window.removeEventListener('hashchange', read)
+  }, [])
 
   // A remembered token means the password prompt is skipped entirely.
   useEffect(() => {

@@ -28,7 +28,7 @@ export default function Masthead() {
 
         <div className="rule-double" />
 
-        <h1 className="masthead__title">
+        <h1 className="masthead__title" data-journal-hold>
           <Link href="/">Navyansh On It</Link>
         </h1>
 
